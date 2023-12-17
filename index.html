@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cricket Game</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="main-container">
+        <div id="header-container">
+            <div class="score-life-align">
+                <span>Life</span>
+                <input id="finalLife" class="life-score" type="text" placeholder="5" readonly>
+            </div>
+            <div class="score-life-align">
+                <span>Score</span>
+                <input id="finalScore" class="life-score" type="text" placeholder="0" readonly>
+            </div>
+        </div>
+      <div id="computer-container">
+        <input class="finalView" id="comp" type="text" readonly />
+      </div>
+      <div id="result-container">
+        <input class="finalView" id="res" type="text" value="Welcome" readonly />
+      </div>
+      <div id="user-container">
+        <input class="finalView" id="user" type="text" readonly />
+      </div>
+      <div id="user-option">
+        <button
+          onclick="
+                let yourChoice = ' your choice is bat';
+                let compChoice;
+                let result;
+                let randomNum = Math.random() * 3;
+                if (randomNum > 0 && randomNum <=1) {
+                    compChoice='computer choice is bat';
+                }else if (randomNum > 1 && randomNum <=2) {
+                    compChoice='computer choice is ball';
+                }else if (randomNum > 2 && randomNum <=3) {
+                    compChoice='computer choice is stump';
+                }
+
+                if (compChoice==='computer choice is bat') {
+                    result='Match Tie';
+                }else if (compChoice==='computer choice is ball') {
+                    result=`You won`;
+                }else if (compChoice==='computer choice is stump') {
+                    result='You lose';
+                }
+
+                document.querySelector('#comp').value = `${compChoice}`;
+                document.querySelector('#res').value = `${result}`;
+                document.querySelector('#user').value = `${yourChoice}`;
+
+                if (result==='You lose' && life>0) {
+                    life--;
+                    document.querySelector('#finalLife').value = `${life}`;
+                }
+
+                if (result==='You won' && life>0) {
+                    score++;
+                    document.querySelector('#finalScore').value = `${score}`;
+                }
+
+                if (life==0 || life<0) {
+                    document.querySelector('#comp').value = '';
+                    document.querySelector('#res').value = 'Game Over';
+                    document.querySelector('#user').value = '';
+                }
+
+                "
+        >
+          <img src="images/bat.jpg" alt="Bat" />
+        </button>
+        <button
+          onclick="
+        yourChoice = ' your choice is ball';
+                let compChoice;
+                let result;
+                randomNum = Math.random() * 3;
+                if (randomNum > 0 && randomNum <=1) {
+                    compChoice='computer choice is bat';
+                }else if (randomNum > 1 && randomNum <=2) {
+                    compChoice='computer choice is ball';
+                }else if (randomNum > 2 && randomNum <=3) {
+                    compChoice='computer choice is stump';
+                }
+
+                if (compChoice==='computer choice is bat') {
+                    result='You lose';
+                }else if (compChoice==='computer choice is ball') {
+                    result='Match Tie';
+                }else if (compChoice==='computer choice is stump') {
+                    result=`You won`;
+                }
+
+                document.querySelector('#comp').value = `${compChoice}`;
+                document.querySelector('#res').value = `${result}`;
+                document.querySelector('#user').value = `${yourChoice}`;
+
+                if (result==='You lose' && life>0) {
+                    life--;
+                    document.querySelector('#finalLife').value = `${life}`;
+                }
+
+                if (result==='You won' && life>0) {
+                    score++;
+                    document.querySelector('#finalScore').value = `${score}`;
+                }
+
+                if (life==0 || life<0) {
+                    document.querySelector('#comp').value = '';
+                    document.querySelector('#res').value = 'Game Over';
+                    document.querySelector('#user').value = '';
+                }
+        "
+        >
+          <img src="images/ball.jpg" alt="Bat" />
+        </button>
+        <button
+          onclick="
+        yourChoice = ' your choice is stump';
+                let compChoice;
+                let result;
+                randomNum = Math.random() * 3;
+                if (randomNum > 0 && randomNum <=1) {
+                    compChoice='computer choice is bat';
+                }else if (randomNum > 1 && randomNum <=2) {
+                    compChoice='computer choice is ball';
+                }else if (randomNum > 2 && randomNum <=3) {
+                    compChoice='computer choice is stump';
+                }
+
+                if (compChoice==='computer choice is bat') {
+                    result='You won';
+                }else if (compChoice==='computer choice is ball') {
+                    result='You lose';
+                }else if (compChoice==='computer choice is stump') {
+                    result='Match Tie';
+                }
+
+                document.querySelector('#comp').value = `${compChoice}`;
+                document.querySelector('#res').value = `${result}`;
+                document.querySelector('#user').value = `${yourChoice}`;
+
+                if (result==='You lose' && life>0) {
+                    life--;
+                    document.querySelector('#finalLife').value = `${life}`;
+                }
+
+                if (result==='You won' && life>0) {
+                    score++;
+                    document.querySelector('#finalScore').value = `${score}`;
+                }
+
+                if (life==0 || life<0) {
+                    document.querySelector('#comp').value = '';
+                    document.querySelector('#res').value = 'Game Over';
+                    document.querySelector('#user').value = '';
+                }
+        "
+        >
+          <img src="images/stump.jpg" alt="Bat" />
+        </button>
+      </div>
+    </div>
+    <script>
+        let score = 0;
+        let life = 5;
+    </script>
+  </body>
+</html>
