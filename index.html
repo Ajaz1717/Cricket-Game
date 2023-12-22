@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cricket Game</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="main-container">
+      <div id="header-container">
+        <div class="score-life-align">
+          <span>Life</span>
+          <input
+            id="finalLife"
+            class="life-score"
+            type="text"
+            placeholder="5"
+            readonly
+          />
+        </div>
+        <div class="score-life-align">
+          <span>Last score</span>
+          <input
+            id="HighScore"
+            class="life-score"
+            type="text"
+            placeholder="0"
+            readonly
+          />
+        </div>
+        <div class="score-life-align">
+          <span>Score</span>
+          <input
+            id="finalScore"
+            class="life-score"
+            type="text"
+            placeholder="0"
+            readonly
+          />
+        </div>
+      </div>
+      
+      <div id="battle-container">
+        <div id="user-container" class="user-comp">
+          <span class="you-vs-comp">You</span>
+          <input class="finalView" id="user" type="text" readonly />
+        </div>
+        <div id="vs"><span id="vs-style">vs</span></div>
+        <div id="computer-container" class="user-comp">
+          <span class="you-vs-comp">Computer</span>
+          <input class="finalView" id="comp" type="text" readonly />
+        </div>
+      </div>
+
+      <div id="result-container">
+        <input
+          class="finalView"
+          id="res"
+          type="text"
+          value="Welcome"
+          readonly
+        />
+      </div>
+      <div id="store-container">
+        <div id="set-container">
+          <button id="set-button" class="set-get" onclick="localStorage.setItem('myScore', JSON.stringify(arrScore))">Save</button>
+        </div>
+        <div id="get-container">
+          <button id="get-button" class="set-get" onclick="location.reload()">Restart</button>
+        </div>
+      </div>
+      
+      <div id="user-option">
+        <button class="control-button"
+          onclick="
+                let yourChoice = 'Bat';
+                let compChoice;
+                let result;
+                
+                compChoice = generateRandomNumber();
+                result= generateResult(yourChoice, compChoice);
+          
+
+                document.querySelector('#comp').value = `${compChoice}`;
+                document.querySelector('#res').value = `${result}`;
+                document.querySelector('#user').value = `${yourChoice}`;
+
+                if (result==='Lose' && life>0) {
+                    life--;
+                    document.querySelector('#finalLife').value = `${life}`;
+                }
+
+                if (result==='Won' && life>0) {
+                    score++;
+                    document.querySelector('#finalScore').value = `${score}`;
+                }
+                let scoreFinal = score;
+                arrScore=[];
+
+                arrScore.push(scoreFinal);
+                console.log(arrScore);
+
+                // arrScore = localStorage.getItem('myScore');
+
+
+
+                gameOver(life);
+                document.querySelector('#res').classList.add('js-textGrow');
+                "
+        >
+          <img src="images/bat.jpg" alt="Bat" />
+        </button>
+        <button class="control-button"
+          onclick="
+        yourChoice = 'Ball';
+                let compChoice;
+                let result;
+                compChoice = generateRandomNumber();
+                result= generateResult(yourChoice, compChoice);
+
+                document.querySelector('#comp').value = `${compChoice}`;
+                document.querySelector('#res').value = `${result}`;
+                document.querySelector('#user').value = `${yourChoice}`;
+
+                if (result==='Lose' && life>0) {
+                    life--;
+                    document.querySelector('#finalLife').value = `${life}`;
+                }
+
+                if (result==='Won' && life>0) {
+                    score++;
+                    document.querySelector('#finalScore').value = `${score}`;
+                }
+                scoreFinal = score;
+                arrScore=[];
+
+                arrScore.push(scoreFinal);
+                
+
+                gameOver(life);
+
+                document.querySelector('#res').classList.add('js-textGrow');
+        "
+        >
+          <img src="images/ball.jpg" alt="Bat" />
+        </button>
+        <button class="control-button"
+          onclick="
+        yourChoice = 'Stump';
+                let compChoice;
+                let result;
+                compChoice = generateRandomNumber();
+                result= generateResult(yourChoice, compChoice);
+
+                document.querySelector('#comp').value = `${compChoice}`;
+                document.querySelector('#res').value = `${result}`;
+                document.querySelector('#user').value = `${yourChoice}`;
+
+                if (result==='Lose' && life>0) {
+                    life--;
+                    document.querySelector('#finalLife').value = `${life}`;
+                }
+
+                if (result==='Won' && life>0) {
+                    score++;
+                    document.querySelector('#finalScore').value = `${score}`;
+                }
+                scoreFinal = score;
+                arrScore=[];
+
+                arrScore.push(scoreFinal);
+                
+
+                gameOver(life);
+
+                document.querySelector('#res').classList.add('js-textGrow');
+        "
+        >
+          <img src="images/stump.jpg" alt="Bat" />
+        </button>
+      </div>
+    </div>
+    <script>
+      let score = 0;
+      let life = 5;
+      let arrScore;
+      let arrLatest = [];
+      // console.log(arrLatest);
+      arrLatest = localStorage.getItem('myScore');
+      let lastSocre = arrLatest[1];
+      let lastButton = document.querySelector('#HighScore');
+
+      lastButton.value = lastSocre;
+
+      function generateRandomNumber() {
+        let randomNum = Math.random() * 3;
+        if (randomNum > 0 && randomNum <= 1) {
+          return "Bat";
+        } else if (randomNum > 1 && randomNum <= 2) {
+          return "Ball";
+        } else if (randomNum > 2 && randomNum <= 3) {
+          return "Stump";
+        }
+      }
+
+      function generateResult(userMove, compMove) {
+        if (userMove === "Bat") {
+          if (compMove === "Bat") {
+            return "Tie";
+          } else if (compMove === "Ball") {
+            return `Won`;
+          } else if (compMove === "Stump") {
+            return "Lose";
+          }
+        } else if (userMove === "Ball") {
+          if (compMove === "Bat") {
+            return "Lose";
+          } else if (compMove === "Ball") {
+            return "Tie";
+          } else if (compMove === "Stump") {
+            return `Won`;
+          }
+        } else if (userMove === "Stump") {
+          if (compMove === "Bat") {
+            return "Won";
+          } else if (compMove === "Ball") {
+            return "Lose";
+          } else if (compMove === "Stump") {
+            return "Tie";
+          }
+        }
+      }
+
+      function gameOver(jivan){
+        if (jivan==0 || jivan<0) {
+            document.querySelector('#comp').value = `Last Score: ${lastSocre}`;
+            document.querySelector('#res').value = 'Game Over';
+            document.querySelector('#user').value = `Current Score: ${score}`;
+            document.querySelector('#user').classList.add('js-last-fontSize');
+            document.querySelector('#comp').classList.add('js-last-fontSize');
+        }
+      }
+    </script>
+  </body>
+</html>
